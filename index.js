@@ -22,9 +22,10 @@ let speedtest = new FastSpeedtest({
 let speedTestValue = 0;
 let returnURL = ""; //respondent returnURL from decipher
 
-app.route("/:record/:returnURL")
+app.route("/")
   .get((req, res) => {
     res.render("pages/speedTestPage");
+    // req.query = returns the url params.
     //set returnURL on entry
   })
 
