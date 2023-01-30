@@ -1,0 +1,24 @@
+<%- include('../partials/page_head') -%>
+<body>
+  <div id="welcome">
+    <h1>Click to start speed test</h1>
+    <form action="/speedTestRun" method="post">
+      <button id="startTest" type="Run Speedtest">Start speed test</button>
+    </form>
+  </div>
+
+  <div id="testRunning">
+    <h1>Speed test is running</h1>
+    <img id="spinner" src="img/Spin-1s-200px.gif" />
+  </div>
+
+</body>
+
+<script>
+$("#startTest").click(function(){
+  $("#welcome").hide();
+  $("#testRunning").show();
+});
+</script>
+
+<%- include('../partials/page_tail') -%>
