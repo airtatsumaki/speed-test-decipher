@@ -36,6 +36,9 @@ app.route("/")
 
 app.route("/speedTestRun")
   .post((req, res) => {
+    console.log(`speed :  ${speedTestValue}`);
+    console.log(`record :  ${record}`);
+    console.log(`returnURL :  ${returnURL}`);
     speedtest.getSpeed().then(s => {
       console.log(`Speed: ${s} Mbps`);
       speedTestValue = s;
