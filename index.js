@@ -21,12 +21,17 @@ let speedtest = new FastSpeedtest({
 
 let speedTestValue = 0;
 let returnURL = ""; //respondent returnURL from decipher
+let record = 0;
 
 app.route("/")
   .get((req, res) => {
+    // console.log(req.query);
+    returnURL = req.query.returnURL;
+    record = req.query.record;
     res.render("pages/speedTestPage");
     // req.query = returns the url params.
-    //set returnURL on entry
+    // set returnURL on entry
+    // http://localhost:3000/?record=1&returnURL=www.google.com
   })
 
 app.route("/speedTestRun")
@@ -44,6 +49,11 @@ app.get("/complete", (req, res) => {
   res.render("pages/complete", { speed: speedTestValue });
   //redirect to returnURL route
 });
+
+app.route("/exit")
+  .post((req, res) => {
+    res.redirect("https://" + returnURL);
+  });
 
 // app.route("/")
 //   .get((req, res) => {

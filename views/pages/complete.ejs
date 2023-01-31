@@ -1,5 +1,8 @@
 <%- include('../partials/page_head') -%>
 <body>
   <h1>Your download speed is : <%= speed %></h1>
+  <form action="/exit" method="post">
+    <button type="submit">Exit out of speed test</button>
+  </form>
 </body>
 <%- include('../partials/page_tail') -%>
