@@ -53,7 +53,7 @@ app.route("/complete")
 
 app.route("/exit")
   .post((req, res) => {
-    res.redirect("https://" + returnURL);
+    res.redirect(returnURL);
   });
 
 // app.route("/")
