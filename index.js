@@ -43,71 +43,12 @@ app.route("/")
 app.route("/speedTestRun")
   .post(function (req, res) {
     universalSpeedtest.runCloudflareCom().then(function (result) {
-      console.log(result);
       speedTestValue = result.downloadSpeed;
       console.log(`speed: ${speedTestValue}`);
       console.log(`record: ${record}`);
       console.log(`returnURL: ${returnURL}`);
-      // res.redirect("/complete");
       res.redirect(returnURL+`&result=${speedTestValue}`);
     });
-    
-    // speedtest.getSpeed().then(s => {
-    //   console.log(`Speed: ${s} Mbps`);
-    //   speedTestValue = s;
-    //   console.log(`speed :  ${speedTestValue}`);
-    //   console.log(`record :  ${record}`);
-    //   console.log(`returnURL :  ${returnURL}`);
-    //   res.redirect("/complete");
-    // }).catch(e => {
-    //   console.error(e.message);
-    // });
   })
-
-
-app.route("/complete")
-  .get((req, res) => {
-    console.log(speedTestValue);
-    res.render("pages/complete", { speed: speedTestValue });
-    //redirect to returnURL route
-});
-
-app.route("/exit")
-  .post((req, res) => {
-    console.log(speedTestValue);
-    res.redirect(returnURL+`&result=${speedTestValue}`);
-  });
-
-// app.route("/")
-//   .get((req, res) => {
-//     res.render("pages/index");
-//   })
-//   .post((req, res) => {
-//     res.redirect("/speedTestPage");
-//     speedtest.getSpeed().then(s => {
-//       console.log(`Speed: ${s} Mbps`);
-//       speedTestValue = s;
-//       res.redirect("/complete");
-//     }).catch(e => {
-//       console.error(e.message);
-//     });
-//   });
-
-// app.route("/speedTestPage")
-//   .get((req, res) => {
-//     // return res.render("pages/speedTestPage", {hideNext: true});
-//     speedtest.getSpeed().then(s => {
-//       console.log(`Speed: ${s} Mbps`);
-//       speedTestValue = s;
-//       return res.redirect("/complete");
-//     }).catch(e => {
-//       console.error(e.message);
-//     });
-//   })
-
-// app.route("/complete")
-//   .get((req, res) => {
-//     res.render("pages/complete", {speed: speedTestValue});
-//   });
 
 app.listen(3000, () => console.log("Server listening in port 3000"));
