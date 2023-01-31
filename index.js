@@ -26,8 +26,8 @@ var jsonParser = bodyParser.json();
 // });
 
 let speedTestValue = 0;
-let returnURL = ""; //respondent returnURL from decipher
 let record = 0;
+let returnURL = ""; //respondent returnURL from decipher
 
 app.route("/")
   .get((req, res) => {
@@ -45,6 +45,9 @@ app.route("/speedTestRun")
     universalSpeedtest.runCloudflareCom().then((result) => {
       console.log(result);
       speedTestValue = result.downloadSpeed;
+      console.log(`speed: ${speedTestValue}`);
+      console.log(`record: ${record}`);
+      console.log(`returnURL: ${returnURL}`);
       res.redirect("/complete");
     });
     
