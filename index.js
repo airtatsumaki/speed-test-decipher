@@ -1,5 +1,11 @@
 const express = require('express');
-const FastSpeedtest = require("fast-speedtest-api");
+// const FastSpeedtest = require("fast-speedtest-api");
+const { UniversalSpeedtest, SpeedUnits } = require('universal-speedtest');
+const universalSpeedtest = new UniversalSpeedtest({
+  measureUpload: false,
+  secure: false,
+  downloadUnit: SpeedUnits.MBps
+});
 var bodyParser = require('body-parser')
 const app = express();
 app.use(express.urlencoded({extended: true})); 
@@ -9,15 +15,15 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 var jsonParser = bodyParser.json();
 
-let speedtest = new FastSpeedtest({
-  token: "YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm", // required
-  verbose: true, // default: false
-  timeout: 10000, // time taken to run speed test, default: 5000
-  https: true, // default: true
-  urlCount: 5, // default: 5
-  bufferSize: 8, // default: 8
-  unit: FastSpeedtest.UNITS.Mbps // default: Bps
-});
+// let speedtest = new FastSpeedtest({
+//   token: "YXNkZmFzZGxmbnNkYWZoYXNkZmhrYWxm", // required
+//   verbose: true, // default: false
+//   timeout: 10000, // time taken to run speed test, default: 5000
+//   https: true, // default: true
+//   urlCount: 5, // default: 5
+//   bufferSize: 8, // default: 8
+//   unit: FastSpeedtest.UNITS.Mbps // default: Bps
+// });
 
 let speedTestValue = 0;
 let returnURL = ""; //respondent returnURL from decipher
@@ -36,16 +42,22 @@ app.route("/")
 
 app.route("/speedTestRun")
   .post((req, res) => {
-    speedtest.getSpeed().then(s => {
-      console.log(`Speed: ${s} Mbps`);
-      speedTestValue = s;
-      console.log(`speed :  ${speedTestValue}`);
-      console.log(`record :  ${record}`);
-      console.log(`returnURL :  ${returnURL}`);
+    universalSpeedtest.runCloudflareCom().then((result) => {
+      console.log(result);
+      speedTestValue = result.downloadSpeed;
       res.redirect("/complete");
-    }).catch(e => {
-      console.error(e.message);
     });
+    
+    // speedtest.getSpeed().then(s => {
+    //   console.log(`Speed: ${s} Mbps`);
+    //   speedTestValue = s;
+    //   console.log(`speed :  ${speedTestValue}`);
+    //   console.log(`record :  ${record}`);
+    //   console.log(`returnURL :  ${returnURL}`);
+    //   res.redirect("/complete");
+    // }).catch(e => {
+    //   console.error(e.message);
+    // });
   })
 
 app.route("/complete")
@@ -91,4 +103,4 @@ app.route("/exit")
 //     res.render("pages/complete", {speed: speedTestValue});
 //   });
 
-app.listen(8080, () => console.log("Server listening in port 3000"));
+app.listen(3000, () => console.log("Server listening in port 3000"));
