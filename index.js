@@ -36,12 +36,12 @@ app.route("/")
 
 app.route("/speedTestRun")
   .post((req, res) => {
-    console.log(`speed :  ${speedTestValue}`);
-    console.log(`record :  ${record}`);
-    console.log(`returnURL :  ${returnURL}`);
     speedtest.getSpeed().then(s => {
       console.log(`Speed: ${s} Mbps`);
       speedTestValue = s;
+      console.log(`speed :  ${speedTestValue}`);
+      console.log(`record :  ${record}`);
+      console.log(`returnURL :  ${returnURL}`);
       res.redirect("/complete");
     }).catch(e => {
       console.error(e.message);
@@ -56,7 +56,7 @@ app.route("/complete")
 
 app.route("/exit")
   .post((req, res) => {
-    res.redirect(returnURL);
+    res.redirect(returnURL+`&result=${speedTestValue}`);
   });
 
 // app.route("/")
