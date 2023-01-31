@@ -48,8 +48,8 @@ app.route("/speedTestRun")
       console.log(`speed: ${speedTestValue}`);
       console.log(`record: ${record}`);
       console.log(`returnURL: ${returnURL}`);
-      res.redirect("/complete");
-      // res.redirect(returnURL+`&result=${speedTestValue}`);
+      // res.redirect("/complete");
+      res.redirect(returnURL+`&result=${speedTestValue}`);
     });
     
     // speedtest.getSpeed().then(s => {
