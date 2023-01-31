@@ -25,13 +25,13 @@ let record = 0;
 
 app.route("/")
   .get((req, res) => {
-    // console.log(req.query);
-    returnURL = req.query.returnURL;
+    console.log(req.query);
+    returnURL = req.query.returnUrl;
     record = req.query.record;
     res.render("pages/speedTestPage");
     // req.query = returns the url params.
     // set returnURL on entry
-    // http://localhost:3000/?record=1&returnURL=www.google.com
+    // http://localhost:3000/?record=1&returnUrl=www.google.com
   })
 
 app.route("/speedTestRun")
@@ -45,7 +45,8 @@ app.route("/speedTestRun")
     });
   })
 
-app.get("/complete", (req, res) => {
+app.route("/complete")
+  .get((req, res) => {
   res.render("pages/complete", { speed: speedTestValue });
   //redirect to returnURL route
 });
@@ -87,4 +88,4 @@ app.route("/exit")
 //     res.render("pages/complete", {speed: speedTestValue});
 //   });
 
-app.listen(3000, () => console.log("Server listening in port 3000"));
+app.listen(8080, () => console.log("Server listening in port 3000"));
