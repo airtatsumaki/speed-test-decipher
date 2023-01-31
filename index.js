@@ -41,8 +41,8 @@ app.route("/")
   })
 
 app.route("/speedTestRun")
-  .post((req, res) => {
-    universalSpeedtest.runCloudflareCom().then((result) => {
+  .post(function (req, res) {
+    universalSpeedtest.runCloudflareCom().then(function (result) {
       console.log(result);
       speedTestValue = result.downloadSpeed;
       console.log(`speed: ${speedTestValue}`);
