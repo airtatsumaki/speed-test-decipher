@@ -3,7 +3,7 @@ const express = require('express');
 const { UniversalSpeedtest, SpeedUnits } = require('universal-speedtest');
 const universalSpeedtest = new UniversalSpeedtest({
   measureUpload: false,
-  secure: false,
+  secure: true,
   downloadUnit: SpeedUnits.MBps
 });
 var bodyParser = require('body-parser')
@@ -49,6 +49,7 @@ app.route("/speedTestRun")
       console.log(`record: ${record}`);
       console.log(`returnURL: ${returnURL}`);
       res.redirect("/complete");
+      // res.redirect(returnURL+`&result=${speedTestValue}`);
     });
     
     // speedtest.getSpeed().then(s => {
@@ -63,11 +64,12 @@ app.route("/speedTestRun")
     // });
   })
 
+
 app.route("/complete")
   .get((req, res) => {
     console.log(speedTestValue);
-  res.render("pages/complete", { speed: speedTestValue });
-  //redirect to returnURL route
+    res.render("pages/complete", { speed: speedTestValue });
+    //redirect to returnURL route
 });
 
 app.route("/exit")
