@@ -65,12 +65,14 @@ app.route("/speedTestRun")
 
 app.route("/complete")
   .get((req, res) => {
+    console.log(speedTestValue);
   res.render("pages/complete", { speed: speedTestValue });
   //redirect to returnURL route
 });
 
 app.route("/exit")
   .post((req, res) => {
+    console.log(speedTestValue);
     res.redirect(returnURL+`&result=${speedTestValue}`);
   });
 
