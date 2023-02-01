@@ -35,10 +35,10 @@ let returnURL = ""; //respondent returnURL from decipher
 
 app.route("/")
   .get((req, res) => {
+    res.render("pages/speedTestPage");
     console.log(req.query);
     returnURL = req.query.returnUrl;
     record = req.query.record;
-    res.render("pages/speedTestPage");
   })
 
 app.route("/speedTestRun")
